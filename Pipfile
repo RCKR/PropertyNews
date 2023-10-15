@@ -9,6 +9,7 @@ bs4 = "*"
 sqlalchemy = "*"
 pandas = "*"
 lxml = "*"
+pytest = "*"
 
 [dev-packages]
 

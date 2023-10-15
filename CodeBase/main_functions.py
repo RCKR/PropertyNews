@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
 from time import sleep
 import bs4 as bs
-
-
 import requests
 
 
@@ -70,7 +68,6 @@ def find_articles_on_page(soup: bs.BeautifulSoup) -> bs.ResultSet:
     main_container = soup.find('main', id='main')
     articles = main_container.find_all('a', class_='entry__link')
     return articles
-
 
 def nr_pages_within_page_scope(soup: bs.BeautifulSoup, nr_pages: int) -> int:
     nav_links = soup.find('div', class_='nav-links')

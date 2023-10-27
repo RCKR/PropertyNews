@@ -9,6 +9,10 @@ class PropPipe:
         self.data = None
         self.current_soup = mf.get_page(fv_url)
 
+    @property
+    def get_data(self):
+        return self.data
+
     def _update_soup(self, page_idx):
         if page_idx > 1:
             next_url = f'{self.base_url}/page/{page_idx}/'
@@ -36,7 +40,7 @@ class PropPipe:
         self.data.drop(columns='key_match', inplace=True)
         return result
 
-    def run_pipeline(self, nr_pages: int = 1):
+    def run_pipeline(self, inplace=False, nr_pages: int = 1):
         # extract first page and check page criteria
         nr_pages = mf.nr_pages_within_page_scope(self.current_soup, nr_pages=nr_pages)
         main_data_source = []
@@ -51,11 +55,14 @@ class PropPipe:
             main_data_source += article_data
 
         self.data = pd.DataFrame(main_data_source)
-        return main_data_source
+
+        if not inplace:
+            return main_data_source
 
 
 if __name__ == '__main__':
     fv_url_ = 'https://www.fastighetsvarlden.se/'
     pipe = PropPipe(fv_url=fv_url_)
-    data = pipe.run_pipeline(nr_pages=3)
-    df = pd.DataFrame(data)
+    pipe.run_pipeline(nr_pages=3, inplace=True)
+
+

@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import main_functions as mf
+from CodeBase import main_functions as mf
 
 
 class PropPipe:
